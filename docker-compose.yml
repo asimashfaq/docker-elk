@@ -4,6 +4,13 @@ elasticsearch:
   ports:
     - "9200:9200"
     - "9300:9300"
+redis:
+  image: redis:
+  volumes:
+    - ./redis/data:/var/lib/redis
+  ports:
+    - "6379:6379"
+  restart: always
 
 logstash:
   build: logstash/
@@ -14,6 +21,7 @@ logstash:
     - "5000:5000"
   links:
     - elasticsearch
+    - redis
 kibana:
   build: kibana/
   volumes:
